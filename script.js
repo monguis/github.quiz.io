@@ -2,6 +2,9 @@
 var counter = 75;
 var titleText = document.getElementById("questionTitle")
 var timepar = document.getElementById("timer");
+var questionDiv = document.getElementById("questionDiv");
+var questionTitle = document.getElementById("questionTitle");
+var optionList = document.getElementById("optionList");
 
 var questions = [
     {
@@ -17,11 +20,16 @@ var questions = [
 ];
 
 function renderQuestion(index) {
-
-
-    questions[index].title;
+    questionTitle.textContent = questions[index].title;
+    
+    for (var i =0 ; i<questions[index].choices.length;i++){
+        console.log("entro al for");
+        var li =  document.createElement("li");
+        li.textContent = questions[index].choices[i];
+        optionList.appendChild(li);
+    }
 }
-
+renderQuestion(0)
 
 
 
@@ -49,3 +57,5 @@ function timer() {
         }
     }, 1000);
 }
+
+
