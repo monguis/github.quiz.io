@@ -37,11 +37,10 @@ timer()
 
 function timer() {
     console.log("entro")
-    var counter = 10;
     var countdownInterval = setInterval(function () {
 
 
-        if (counter === 0) {
+        if (counter <= 0) {
             console.log(counter)
             timepar.textContent = "Time's Up";
             clearInterval(countdownInterval);
@@ -58,4 +57,14 @@ function timer() {
     }, 1000);
 }
 
-
+optionList.addEventListener("click",function(event){
+    event.preventDefault();
+    if(event.target.matches("li")) {
+        if(event.target.textContent === questions[0].answer){
+            console.log("sigue jalando al cien");
+        }else{
+            counter+= -20;
+            console.log(counter)
+        }
+    } 
+});
