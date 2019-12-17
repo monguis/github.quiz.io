@@ -35,10 +35,10 @@ function renderQuestion(index) {
 
 }
 
-function renderOutro() {
+function renderOutro(str) {
     
     optionList.innerHTML = "";
-    questionTitle.textContent = "All Done";
+    questionTitle.textContent = str;
 
     
     
@@ -46,13 +46,13 @@ function renderOutro() {
 }
 
 function timer() {
-    console.log("entro")
     var countdownInterval = setInterval(function () {
 
         if (secondCounter <= 0) {
 
             timepar.textContent = "Time's Up";
             clearInterval(countdownInterval);
+            renderOutro("That was your last Second")
 
         } else if (secondCounter === 1) {
 
@@ -85,7 +85,7 @@ optionList.addEventListener("click", function (event) {
     if (questionCount<questions.length) {
         renderQuestion(questionCount)
     }else{
-        renderOutro()
+        renderOutro("All Done")
     }
 
 
