@@ -19,6 +19,18 @@ var questions = [
         title: "The condition in an if / else statement is enclosed within ____.",
         choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
         answer: "parentheses"
+    },{
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
+    },{
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
+    },{
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
     },
 ];
 
@@ -30,18 +42,19 @@ function renderQuestion(index) {
         console.log("entro al for");
         var li = document.createElement("li");
         li.textContent = questions[index].choices[i];
+        li.setAttribute("class", "list-group-item list-group-item-action");
         optionList.appendChild(li);
     }
 
 }
 
 function renderOutro(str) {
-    
+
     optionList.innerHTML = "";
     questionTitle.textContent = str;
 
-    
-    
+
+
 
 }
 
@@ -72,33 +85,36 @@ optionList.addEventListener("click", function (event) {
     event.preventDefault();
     if (event.target.matches("li")) {
         if (event.target.textContent === questions[questionCount].answer) {
-            console.log("sigue jalando al cien");
-            printAns("Correct");
+            printAns(true);
         } else {
+            printAns(false);
             secondCounter += -20;
-            console.log(secondCounter)
-            printAns("Wrong");
         }
     }
-    
+
     questionCount++;
-    if (questionCount<questions.length) {
+    if (questionCount < questions.length) {
         renderQuestion(questionCount)
-    }else{
-        renderOutro("All Done")
+    } else {
+        renderOutro("All Done");
     }
 
 
 });
 
-function printAns(str) {
+function printAns(bool) {
+    auxClass = "alert alert-danger";
+    str = "Wrong 20 seconds less";
+    if (bool) {
+        auxClass = "alert alert-success";
+        str = "Correct";
+    }
+    answerDiv.setAttribute("style", "display:block;");
     answerDiv.textContent = str;
-    answerDiv.setAttribute("style", "border-top: solid, gray, 2px;");
-    console.log("antes del delay");
+    answerDiv.setAttribute("class", auxClass);
     setTimeout(function () {
-
-        answerDiv.innerHTML = '';
-    }, 1000);
+        answerDiv.setAttribute("style", "display:none;");
+    }, 500);
 }
 
 
