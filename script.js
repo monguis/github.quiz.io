@@ -166,7 +166,7 @@ startQuizbtn.addEventListener("click", function (event) {
     event.preventDefault();
     questionCount = 0;
     renderQuestion(questionCount);
-    secondCounter = 75;
+    secondCounter = questions.length * 15;
     startQuizbtn.setAttribute("style", "display:none;");
     timer();
 });
