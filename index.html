@@ -8,8 +8,8 @@
     <title>Pop Quiz</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href = "assets/css/style.css" type = "text/css">
-    </head>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+</head>
 
 <body>
     <header class="nav">
@@ -25,26 +25,25 @@
 
     <div class="container p-4">
         <div class="row">
-            <div class="col">
-                <div id="questionDiv">
-                    <h1 id="questionTitle">
-                        Welcome
-                    </h1>
-                    <div id="content">
-                        <ul id="optionList">
+            <div id="questionDiv" class="col-12">
+                <h1  id="questionTitle">
+                    Welcome
+                </h1>
+            </div>
+        </div>
+        <div class="row" id="content">
+            <ul class="col" id="optionList">
 
-                        </ul>
-                    </div>
-                    <button id="startQuiz">
-                        Start quiz
-                    </button>
-                </div>
-            </div>
+            </ul>
         </div>
-        <div class="row">
-            <div id="answerDiv" class="col-sm">
-            </div>
+        <button id="startQuiz">
+            Start quiz
+        </button>
+    </div>
+    <div class="row">
+        <div id="answerDiv" class="col-sm">
         </div>
+    </div>
     </div>
 
     <script src="script.js">

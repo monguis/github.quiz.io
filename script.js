@@ -32,6 +32,7 @@ if (!localStorage.getItem("scoreBoard")) {
 
 }
 
+renderIntro();
 
 
 var questions = [
@@ -64,13 +65,19 @@ var questions = [
 
 
 function renderOutro(str) {
-
-    optionList.innerHTML = "";
     questionTitle.textContent = str;
-    auxForm.innerHTML = ('<input class="form-control mb-3 form-control-lg" type="text" placeholder="Enter your name please"><button type="submit" id="submitBtn"  class="btn btn-primary mb-2">Confirm</button>');
+    optionList.innerHTML = "";
+    auxForm.innerHTML = ('<input class="form-control col mb-3 form-control-lg" type="text" placeholder="Enter your name please"><button type="submit" id="submitBtn"  class="btn btn-primary mb-2">Confirm</button>');
+    auxForm.setAttribute("class", "col-12");
     contentDiv.appendChild(auxForm);
-    li.setAttribute("class", "list-group-item list-group-item-action");
 }
+
+function renderIntro(){
+
+    titleText.textContent = "Welcome";
+    startQuizbtn.setAttribute("style", "display:block;margin: 0 auto");
+}
+
 
 function addScore(namestr, scorenum) {
     var newScore = { name: namestr, score: scorenum };
@@ -85,10 +92,9 @@ function timer() {
     var countdownInterval = setInterval(function () {
 
         if (secondCounter <= 0) {
-
+            renderOutro("That was your last Second")
             timepar.textContent = "Time's Up";
             clearInterval(countdownInterval);
-            renderOutro("That was your last Second")
 
         } else if (secondCounter === 1) {
 
@@ -134,7 +140,7 @@ function printAns(bool) {
 
 optionList.addEventListener("click", function (event) {
     event.preventDefault();
-    if (event.target.matches("li")) {
+    if (event.target.matches("li") && event.target.getAttribute("class") !== "list-group-item score" ) {
         if (event.target.textContent === questions[questionCount].answer) {
             printAns(true);
             indScore += 20;
@@ -142,22 +148,24 @@ optionList.addEventListener("click", function (event) {
             printAns(false);
             secondCounter += -20;
         }
-    }
 
     questionCount++;
     if (questionCount < questions.length) {
         renderQuestion(questionCount)
     } else {
+        secondCounter = 0;
         renderOutro("All Done");
     }
-
+} else {
+    return;
+}
 
 });
 
 startQuizbtn.addEventListener("click", function (event) {
     event.preventDefault();
     questionCount = 0;
-    renderQuestion(questionCount)
+    renderQuestion(questionCount);
     secondCounter = 75;
     startQuizbtn.setAttribute("style", "display:none;");
     timer();
@@ -165,22 +173,35 @@ startQuizbtn.addEventListener("click", function (event) {
 
 
 auxForm.addEventListener("submit", function (event) {
+
     event.preventDefault();
-    addScore(auxForm.querySelector("input").value, indScore)
-    auxForm.innerHTML = "";
-    titleText.textContent = "Welcome";
-    startQuizbtn.setAttribute("style", "display:block;margin: 0 auto");
+    if (auxForm.querySelector("input").value !== "") {
+        addScore(auxForm.querySelector("input").value, indScore)
+        auxForm.innerHTML = "";
+        renderIntro();
+        indScore = 0;
+    }
 });
 
 scoreLink.addEventListener("click", function () {
 
-    if(!localStorage.getItem("scoreBoard")){
-        
-        console.log("no hay nada");
+    if (!localStorage.getItem("scoreBoard")) {
+
         return;
+
     } else {
-        
-    titleText.textContent = "Scoreboard";
-        console.log("ya hay algo");
+
+
+        titleText.textContent = "Scoreboard";
+        startQuizbtn.setAttribute("style", "display:none;");
+
+        var auxArray = JSON.parse(localStorage.getItem("scoreBoard"));
+        optionList.innerHTML = "";
+        for (var i = 0; i < auxArray.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = `Name: ${auxArray[i].name} Score: ${auxArray[i].score} points`;
+            li.setAttribute("class", "list-group-item score");
+            optionList.appendChild(li);
+        }
     }
 });
